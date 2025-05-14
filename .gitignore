@@ -1,0 +1,7 @@
+.venv
+
+/build/
+/cascade/
+/dist/
+/self_learn_image/
+/train/
