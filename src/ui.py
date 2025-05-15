@@ -15,7 +15,7 @@ class DrowsinessDetectionUI(QMainWindow):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle("Driver Drowsiness Detection")
+        self.setWindowTitle("Система розпізнавання втоми водія")
         self.setGeometry(100, 100, 1000, 600)
         self.setStyleSheet("background-color: #2c3e50;")
 
@@ -35,7 +35,7 @@ class DrowsinessDetectionUI(QMainWindow):
         video_container_layout.addWidget(self.video_label)
 
         # Overlay label (initially hidden)
-        self.overlay_label = QLabel("Video Stopped")
+        self.overlay_label = QLabel("Відео зупинено")
         self.overlay_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.overlay_label.setStyleSheet(
             "color: #ecf0f1; font-size: 18pt; font-weight: bold; background-color: transparent;")
@@ -46,7 +46,7 @@ class DrowsinessDetectionUI(QMainWindow):
         right_panel = QVBoxLayout()
 
         # App title
-        title_label = QLabel("Driver Drowsiness\nDetection")
+        title_label = QLabel("Система розпізнавання\nвтоми водія")
         title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title_label.setFont(QFont("Arial", 24, QFont.Weight.Bold))
         title_label.setStyleSheet("color: #ecf0f1; margin: 10px;")
@@ -56,17 +56,17 @@ class DrowsinessDetectionUI(QMainWindow):
         status_box.setStyleSheet("background-color: #34495e; border-radius: 10px; padding: 15px;")
         status_layout = QVBoxLayout(status_box)
 
-        status_title = QLabel("Status")
+        status_title = QLabel("Статус")
         status_title.setFont(QFont("Arial", 16, QFont.Weight.Bold))
         status_title.setStyleSheet("color: #ecf0f1;")
 
-        self.status_label = QLabel("Video thread not started")
+        self.status_label = QLabel("Відео потік ще не запущено")
         self.status_label.setFont(QFont("Arial", 20, QFont.Weight.Bold))
         self.status_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.status_label.setStyleSheet("color: #2ecc71; margin: 10px;")
 
         # Alertness bar
-        alert_label = QLabel("Alertness Level:")
+        alert_label = QLabel("Рівень розпізнавання:")
         alert_label.setStyleSheet("color: #ecf0f1;")
         self.alertness_bar = QProgressBar()
         self.alertness_bar.setRange(0, 100)
@@ -86,16 +86,16 @@ class DrowsinessDetectionUI(QMainWindow):
         """)
 
         # Eye status
-        eye_label = QLabel("Eye Status:")
+        eye_label = QLabel("Стасус очей:")
         eye_label.setStyleSheet("color: #ecf0f1;")
-        self.eye_status = QLabel("Invalid")
+        self.eye_status = QLabel("Невідомо")
         self.eye_status.setFont(QFont("Arial", 12))
         self.eye_status.setStyleSheet("color: #2ecc71;")
 
         # Yawn status
-        yawn_label = QLabel("Yawn Status:")
+        yawn_label = QLabel("Статус позіхання:")
         yawn_label.setStyleSheet("color: #ecf0f1;")
-        self.yawn_status = QLabel("Invalid")
+        self.yawn_status = QLabel("Невідомо")
         self.yawn_status.setFont(QFont("Arial", 12))
         self.yawn_status.setStyleSheet("color: #2ecc71;")
 
@@ -112,7 +112,7 @@ class DrowsinessDetectionUI(QMainWindow):
         # Buttons
         button_layout = QHBoxLayout()
 
-        self.start_button = QPushButton("Start")
+        self.start_button = QPushButton("Старт")
         self.start_button.setStyleSheet("""
             QPushButton {
                 background-color: #2ecc71;
@@ -127,7 +127,7 @@ class DrowsinessDetectionUI(QMainWindow):
             }
         """)
 
-        self.stop_button = QPushButton("Stop")
+        self.stop_button = QPushButton("Стоп")
         self.stop_button.setStyleSheet("""
             QPushButton {
                 background-color: #e74c3c;
@@ -201,13 +201,13 @@ class DrowsinessDetectionUI(QMainWindow):
 
         # Show the overlay label with "Video Stopped" message
         if self.overlay_label:
-            self.overlay_label.setText("Video Stopped")
+            self.overlay_label.setText("Відео зупинено")
             self.overlay_label.setVisible(True)
 
-        self.status_label.setText("Video thread stopped")
+        self.status_label.setText("Відео потік зупинено")
         self.alertness_bar.setValue(0)
-        self.eye_status.setText("Invalid")
-        self.yawn_status.setText("Invalid")
+        self.eye_status.setText("Невідомо")
+        self.yawn_status.setText("Невідомо")
 
         self.start_button.setEnabled(True)
         self.stop_button.setEnabled(False)
@@ -238,7 +238,7 @@ class DrowsinessDetectionUI(QMainWindow):
 
         # Update color based on alert level
         if status["alert_level"] == 0:
-            self.status_label.setText("Normal")
+            self.status_label.setText("Нормальний")
             self.status_label.setStyleSheet("color: #2ecc71; font-weight: bold; font-size: 20pt;")
             self.alertness_bar.setStyleSheet("""
                 QProgressBar {
@@ -253,7 +253,7 @@ class DrowsinessDetectionUI(QMainWindow):
                 }
             """)
         elif status["alert_level"] == 1:
-            self.status_label.setText("Drowsy")
+            self.status_label.setText("Втомлений")
             self.status_label.setStyleSheet("color: #f39c12; font-weight: bold; font-size: 20pt;")
             self.alertness_bar.setStyleSheet("""
                 QProgressBar {
@@ -285,18 +285,18 @@ class DrowsinessDetectionUI(QMainWindow):
 
         # Update eye status
         if ear_value < self.video_thread.close_thresh:
-            self.eye_status.setText("Closed")
+            self.eye_status.setText("Заплющений")
             self.eye_status.setStyleSheet("color: #e74c3c; font-weight: bold;")
         else:
-            self.eye_status.setText("Open")
+            self.eye_status.setText("Розплющений")
             self.eye_status.setStyleSheet("color: #2ecc71; font-weight: bold;")
 
         # Update yawn status
         if status["yawning"]:
-            self.yawn_status.setText("Yawning")
+            self.yawn_status.setText("Позіхає")
             self.yawn_status.setStyleSheet("color: #f39c12; font-weight: bold;")
         else:
-            self.yawn_status.setText("Not Yawning")
+            self.yawn_status.setText("Не позіхає")
             self.yawn_status.setStyleSheet("color: #2ecc71; font-weight: bold;")
 
     def closeEvent(self, event):

@@ -98,7 +98,7 @@ class VideoProcessor(QThread):
                     if self.yawn_countdown and self.flag >= self.frame_thresh_3:
                         eyeContourColor = (147, 20, 255)  # Purple
                         status["alert_level"] = 3
-                        status["message"] = "Sleepy after yawn!"
+                        status["message"] = "Сонність (позіхання)"
                         self.alert.play()
                         if self.map_flag:
                             self.map_flag = 0
@@ -106,7 +106,7 @@ class VideoProcessor(QThread):
                     elif self.flag >= self.frame_thresh_2 and self.getFaceDirection(shape, size) < 0:
                         eyeContourColor = (255, 0, 0)  # Blue
                         status["alert_level"] = 2
-                        status["message"] = "Sleepy (Body Posture)"
+                        status["message"] = "Сонність"
                         self.alert.play()
                         if self.map_flag:
                             self.map_flag = 0
@@ -114,7 +114,7 @@ class VideoProcessor(QThread):
                     elif self.flag >= self.frame_thresh_1:
                         eyeContourColor = (0, 0, 255)  # Red
                         status["alert_level"] = 1
-                        status["message"] = "Sleepy (Eyes Closed)"
+                        status["message"] = "Сонність (закриті очі)"
                         self.alert.play()
                         if self.map_flag:
                             self.map_flag = 0
